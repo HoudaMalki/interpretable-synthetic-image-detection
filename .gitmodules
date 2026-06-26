@@ -1,0 +1,3 @@
+[submodule "external/FatFormer"]
+	path = external/FatFormer
+	url = https://github.com/Michel-liu/FatFormer.git
