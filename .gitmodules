@@ -10,3 +10,6 @@
 [submodule "external/Awesome_CBM"]
 	path = external/Awesome_CBM
 	url = https://github.com/kkzhang95/Awesome_Concept_Bottleneck_Models.git
+[submodule "external/CIFAKE"]
+	path = external/CIFAKE
+	url = https://github.com/MinaAlmasi/CIFAKE-image-classifiers.git
