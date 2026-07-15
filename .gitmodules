@@ -13,3 +13,6 @@
 [submodule "external/CIFAKE"]
 	path = external/CIFAKE
 	url = https://github.com/MinaAlmasi/CIFAKE-image-classifiers.git
+[submodule "external/ClipBased-SyntheticImageDetection"]
+	path = external/ClipBased-SyntheticImageDetection
+	url = https://github.com/grip-unina/ClipBased-SyntheticImageDetection.git
