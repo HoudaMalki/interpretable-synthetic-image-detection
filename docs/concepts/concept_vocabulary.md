@@ -2,53 +2,63 @@
 
 ## Purpose
 
-This document defines an initial vocabulary of human-understandable visual concepts that may be useful for detecting AI-generated images.
+This document defines an initial vocabulary of human-understandable visual concepts for interpretable synthetic image detection.
 
-At this stage, the concepts are research hypotheses rather than confirmed indicators. Each concept must later be tested experimentally to determine:
+The vocabulary was initially developed as a collection of research hypotheses describing visual characteristics that may distinguish synthetic images from real photographs. A pilot annotation study has since provided preliminary evidence that a subset of these concepts occurs more frequently in synthetic images. However, the pilot dataset is intentionally small and is not sufficient to establish statistical significance, automatic detectability, or generalization across different image generators.
 
-- whether it can be detected reliably,
-- whether it contributes to synthetic-image detection,
-- whether it generalizes across image generators,
-- and whether it produces explanations that are useful to humans.
+This document therefore serves two purposes:
 
-## Research Question
+- to document the complete candidate concept vocabulary considered during the research;
+- to identify the subset of concepts selected and validated during the pilot annotation study.
+
+---
+
+# Research Question
 
 > What human-understandable visual concepts should an interpretable synthetic-image detector use?
 
-## Initial Concept Vocabulary
+---
+
+# Initial Candidate Concept Vocabulary
+
+The following table represents the broader candidate vocabulary considered during the exploratory stage of the project. These concepts were identified from the literature on synthetic image artifacts, computer vision, and image forensics.
+
+This vocabulary should **not** be interpreted as the final concept set used by the current prototype.
 
 | Category | Concept | Potentially Detectable? | Why It May Be Useful | Initial Detection Strategy |
 |---|---|---:|---|---|
 | Human anatomy | Hand anatomy | Yes | Synthetic images may contain unusual finger counts, malformed joints, or implausible hand structures. | Hand detector, pose estimation, vision-language prompts |
 | Human anatomy | Facial consistency | Yes | Facial components may show asymmetry, blending artifacts, or inconsistent geometry. | Face landmarks, face embeddings, vision-language prompts |
 | Human anatomy | Body proportions | Yes | Limbs and body parts may have implausible sizes, positions, or connections. | Human pose estimation, keypoint analysis |
-| Illumination | Lighting consistency | Possibly | Objects within the same scene may appear to be illuminated from incompatible directions. | Lighting estimation, shadow analysis, vision-language prompts |
-| Illumination | Shadow consistency | Possibly | Shadows may have incorrect direction, softness, shape, or attachment to objects. | Segmentation, geometry analysis, vision-language prompts |
-| Illumination | Reflection consistency | Possibly | Reflections may not correspond correctly to the objects or scene geometry. | Object matching, segmentation, multimodal reasoning |
-| Geometry | Perspective consistency | Possibly | Objects may not follow a coherent perspective or vanishing-point structure. | Line detection, vanishing-point estimation |
-| Geometry | Object boundary consistency | Yes | Object edges may merge incorrectly with nearby regions or contain irregular transitions. | Edge detection, segmentation, local feature analysis |
-| Geometry | Structural coherence | Possibly | Repeated structures, architecture, or object components may be incomplete or geometrically inconsistent. | Object detection, structural analysis, vision-language prompts |
-| Texture | Texture smoothness | Yes | Some generated regions may appear over-smoothed or lack natural high-frequency detail. | Frequency analysis, local texture descriptors |
-| Texture | Repeated texture patterns | Yes | Synthetic images may contain duplicated or unnaturally repeated visual patterns. | Patch similarity, autocorrelation, feature matching |
-| Texture | Texture inconsistency | Yes | Texture quality may vary unexpectedly across neighboring regions or similar objects. | Local feature comparison, frequency analysis |
-| Text | Text readability | Yes | Text inside generated images may contain malformed, incomplete, or meaningless characters. | Optical character recognition, language-model validation |
-| Text | Typography consistency | Yes | Letter size, spacing, orientation, or font style may vary unnaturally. | OCR bounding boxes, character-level analysis |
-| Background | Background coherence | Possibly | Background regions may include merged objects, incomplete structures, or incoherent details. | Segmentation, object detection, vision-language prompts |
-| Background | Repeated background elements | Yes | Similar objects or patterns may be duplicated with unusual variations. | Image retrieval features, patch matching |
-| Objects | Object completeness | Yes | Objects may be missing components or contain extra parts. | Object detection, part-based models, vision-language prompts |
-| Objects | Object interaction | Possibly | Contact and spatial relationships between objects may be physically implausible. | Scene graphs, relationship detection |
-| Physics | Physical plausibility | Possibly | Gravity, support, balance, and material behavior may be inconsistent. | Vision-language reasoning, scene understanding |
-| Physics | Material consistency | Possibly | Surfaces may not reflect expected properties of metal, glass, skin, fabric, or water. | Material recognition, reflectance analysis |
-| Image quality | Local sharpness inconsistency | Yes | Some image regions may be unusually sharp while adjacent regions are blurred or poorly defined. | Local sharpness measures, frequency analysis |
-| Image quality | Noise inconsistency | Yes | Noise patterns may differ unnaturally between regions of the same image. | Sensor-noise analysis, residual analysis |
-| Image quality | Compression inconsistency | Yes | Different image regions may show incompatible compression or resampling traces. | Forensic residuals, JPEG analysis |
-| Semantics | Scene coherence | Possibly | Objects may individually appear realistic but form an implausible or contradictory scene. | Vision-language models, scene graphs |
-| Semantics | Attribute consistency | Possibly | Object color, shape, material, or identity may change unexpectedly across the image. | Object embeddings, attribute classifiers |
-| Semantics | Counting consistency | Yes | The number of repeated objects or body parts may be incorrect or ambiguous. | Object detection, counting models |
+| Illumination | Lighting consistency | Possibly | Objects within the same scene may appear illuminated from incompatible directions. | Lighting estimation, shadow analysis |
+| Illumination | Shadow consistency | Possibly | Shadows may have incorrect direction, softness, shape, or attachment to objects. | Geometry analysis, segmentation |
+| Illumination | Reflection consistency | Possibly | Reflections may not correspond correctly to the objects or scene geometry. | Object matching, segmentation |
+| Geometry | Perspective consistency | Possibly | Objects may not follow coherent perspective geometry. | Vanishing-point estimation |
+| Geometry | Object boundary consistency | Yes | Object edges may merge incorrectly with nearby regions or contain irregular transitions. | Edge detection, segmentation |
+| Geometry | Structural coherence | Possibly | Repeated structures or architectural elements may be incomplete or inconsistent. | Structural analysis |
+| Texture | Texture smoothness | Yes | Generated regions may appear unnaturally smooth or lack fine details. | Frequency analysis |
+| Texture | Repeated texture patterns | Yes | Synthetic images may contain duplicated or unnaturally repeated visual patterns. | Patch similarity |
+| Texture | Texture inconsistency | Yes | Texture quality may vary unexpectedly between neighboring regions. | Local feature comparison |
+| Text | Text readability | Yes | Generated text may contain malformed, incomplete, or meaningless characters. | OCR |
+| Text | Typography consistency | Yes | Letter spacing, font, or orientation may vary unnaturally. | Character-level OCR |
+| Background | Background coherence | Possibly | Background regions may contain merged objects or incoherent structures. | Segmentation, object detection |
+| Background | Repeated background elements | Yes | Background objects may be duplicated with slight variations. | Patch matching |
+| Objects | Object completeness | Yes | Objects may be missing components or contain extra parts. | Object detection |
+| Objects | Object interaction | Possibly | Spatial relationships between objects may be physically implausible. | Scene graphs |
+| Physics | Physical plausibility | Possibly | Gravity, balance, and support relationships may be inconsistent. | Vision-language reasoning |
+| Physics | Material consistency | Possibly | Surface appearance may not match expected material properties. | Material recognition |
+| Image quality | Local sharpness inconsistency | Yes | Different image regions may have inconsistent sharpness. | Sharpness analysis |
+| Image quality | Noise inconsistency | Yes | Noise patterns may vary unnaturally between regions. | Sensor-noise analysis |
+| Image quality | Compression inconsistency | Yes | Different image regions may exhibit incompatible compression traces. | JPEG analysis |
+| Semantics | Scene coherence | Possibly | Individually realistic objects may form implausible scenes. | Vision-language models |
+| Semantics | Attribute consistency | Possibly | Object attributes may change unexpectedly within the image. | Attribute classifiers |
+| Semantics | Counting consistency | Yes | The number of repeated objects or body parts may be incorrect. | Object counting |
 
-## Proposed Concept Categories
+---
 
-The initial concepts are grouped into the following categories:
+# Concept Categories
+
+The candidate concepts are grouped into the following categories:
 
 1. Human anatomy
 2. Illumination
@@ -59,94 +69,156 @@ The initial concepts are grouped into the following categories:
 7. Objects
 8. Physics
 9. Image quality
-10. Semantic coherence
+10. Semantics
 
-## Recommended Concepts for the First Prototype
+---
 
-The first prototype should begin with a small and manageable subset rather than using the complete vocabulary.
+# Concepts Selected for the Pilot Study
 
-The proposed initial concepts are:
+Following the exploratory review, six concepts were selected for the first pilot annotation study.
 
 | Priority | Concept | Reason for Selection |
 |---:|---|---|
-| 1 | Text readability | Can be evaluated using OCR and character-level measurements. |
-| 2 | Hand anatomy | Human-understandable and commonly discussed in synthetic-image analysis. |
-| 3 | Facial consistency | Relevant to images containing people and supported by existing face-analysis tools. |
-| 4 | Repeated texture patterns | Can be investigated using patch-level similarity measures. |
-| 5 | Local sharpness inconsistency | Can be measured using conventional image-processing techniques. |
-| 6 | Object boundary consistency | Can be studied using edges and segmentation masks. |
-| 7 | Background coherence | Relevant to complex generated scenes and suitable for vision-language evaluation. |
-| 8 | Perspective consistency | Provides a geometry-based concept distinct from semantic concepts. |
+| 1 | Hand anatomy | Human-understandable and associated with malformed fingers, joints, and hand structures in synthetic images. |
+| 2 | Facial consistency | Frequently discussed artifact in generated portraits and suitable for manual annotation. |
+| 3 | Text readability | One of the strongest known indicators of image generation artifacts. |
+| 4 | Repeated texture patterns | Captures duplicated textures and repetitive local structures. |
+| 5 | Object boundary consistency | Detects unrealistic object contours and merging artifacts. |
+| 6 | Background coherence | Captures inconsistencies within scene backgrounds and secondary objects. |
 
-## Concept Inclusion Criteria
+These concepts were selected because they are:
 
-A concept should be retained in the vocabulary only if it satisfies most of the following criteria:
+- understandable by humans;
+- visually assessable;
+- reasonably applicable across different image types;
+- suitable for future automatic prediction.
 
-- It is understandable to a non-specialist.
-- It can be defined clearly.
-- It can be annotated consistently.
-- It can be estimated automatically or semi-automatically.
-- It contributes useful information for real-versus-synthetic classification.
-- It generalizes across multiple generators.
-- It is not merely a duplicate of another concept.
-- It supports a meaningful explanation of the final prediction.
+---
 
-## Concept Validation Questions
+# Pilot Study Summary
 
-For each concept, the following questions must be investigated:
+A pilot annotation study was conducted using:
 
-1. Can humans annotate the concept consistently?
-2. Can the concept be predicted automatically?
-3. Is the concept more frequent in synthetic images than in real images?
-4. Does the concept improve detection performance?
-5. Does the concept generalize to unseen generators?
-6. Is the concept useful for explaining individual predictions?
-7. Is the concept causally relevant, or merely correlated with the dataset?
-8. Does the concept remain useful after controlling for image resolution and compression?
+- **10 real images**
+- **10 synthetic images**
 
-## Proposed Annotation Scale
+Each image was manually annotated according to the six selected concepts.
 
-Each image-concept pair may initially be annotated using a simple ordinal scale:
+Average concept scores showed substantially higher values for synthetic images than for real images.
+
+| Concept | Real | Synthetic |
+|---|---:|---:|
+| Hand anatomy | 0.0 | 2.0 |
+| Facial consistency | 0.0 | 2.0 |
+| Text readability | 0.5 | 3.0 |
+| Repeated texture patterns | 0.0 | 1.8 |
+| Object boundary consistency | 0.0 | 2.1 |
+| Background coherence | 0.0 | 2.1 |
+
+Although the pilot dataset is intentionally small, the results indicate that all six selected concepts exhibit discriminative potential.
+
+Consequently, **all six concepts were retained** for the next stage of the research.
+
+Detailed results are provided in:
+
+```
+docs/concepts/pilot_results.md
+```
+
+---
+
+# Concept Inclusion Criteria
+
+A concept should remain in the vocabulary only if it satisfies most of the following criteria:
+
+- understandable by non-specialists;
+- clearly defined;
+- consistently annotatable;
+- automatically or semi-automatically predictable;
+- useful for distinguishing real and synthetic images;
+- generalizable across multiple generators;
+- not redundant with another concept;
+- capable of supporting meaningful explanations.
+
+---
+
+# Annotation Scale
+
+The pilot study used the following annotation scale.
 
 | Score | Meaning |
 |---:|---|
-| 0 | Concept is not present or no inconsistency is visible |
-| 1 | Weak or uncertain evidence |
-| 2 | Moderate evidence |
-| 3 | Strong and clearly visible evidence |
-| N/A | Concept cannot be evaluated in this image |
+| 0 | The concept is applicable and no visible issue is present |
+| 1 | Minor or uncertain issue |
+| 2 | Clear issue |
+| 3 | Severe issue |
+| N/A | Concept cannot be evaluated because the relevant content is absent |
 
 Examples:
 
-- Hand anatomy should be marked `N/A` when no hands are visible.
-- Text readability should be marked `N/A` when the image contains no text.
-- Facial consistency should be marked `N/A` when no face is visible.
+- No visible hands → **N/A**
+- Visible anatomically correct hands → **0**
+- No visible face → **N/A**
+- Visible realistic face → **0**
+- No visible text → **N/A**
+- Clearly readable text → **0**
 
-## Important Methodological Note
+---
 
-The concept vocabulary must not assume that every synthetic image contains visible artifacts.
+# Concept Validation Questions
 
-Modern generators can produce images without obvious anatomical, textural, or geometric errors. Therefore, the vocabulary should be treated as a set of candidate explanatory factors rather than a fixed checklist for identifying synthetic images.
+Each selected concept should eventually answer the following questions.
 
-The experiments must also determine whether some concepts occur in real images because of:
+1. Can humans annotate the concept consistently?
+2. Can the concept be predicted automatically?
+3. Is the concept significantly more frequent in synthetic images?
+4. Does it improve synthetic-image detection?
+5. Does it generalize to unseen image generators?
+6. Does it improve model interpretability?
+7. Is the concept causally relevant rather than merely correlated?
+8. Does it remain useful after controlling for resolution, compression, and image quality?
 
-- motion blur,
-- image editing,
-- compression,
-- unusual camera angles,
-- low resolution,
-- artistic style,
-- or naturally uncommon scenes.
+---
 
-## Next Practical Steps
+# Methodological Note
 
-1. Review the initial vocabulary with the supervisor.
-2. Reduce the vocabulary to approximately 5–10 concepts for the first prototype.
-3. Write a precise operational definition for each selected concept.
-4. Create positive, negative, and ambiguous examples.
-5. Design an annotation form.
-6. Annotate a small pilot dataset.
-7. Measure agreement between annotators.
-8. Test automatic concept extraction using CLIP prompts and conventional vision tools.
-9. Evaluate whether concept scores differ between real and synthetic images.
-10. Use the validated concepts in the first concept-based model.
+The selected concepts should not be interpreted as mandatory indicators of synthetic images.
+
+Modern image generators frequently produce images without obvious visual artifacts. Likewise, real photographs may occasionally contain anomalies due to:
+
+- motion blur;
+- image editing;
+- compression;
+- unusual viewpoints;
+- low resolution;
+- artistic style;
+- naturally uncommon scenes.
+
+Therefore, the concepts should be regarded as explanatory visual factors rather than definitive evidence of image synthesis.
+
+---
+
+# Current Status
+
+The following milestones have been completed.
+
+- ✅ Initial concept vocabulary established.
+- ✅ Six concepts selected for the pilot study.
+- ✅ Operational concept definitions created.
+- ✅ Annotation scale defined.
+- ✅ Pilot dataset created (20 images).
+- ✅ Manual concept annotation completed.
+- ✅ Pilot results analyzed.
+- ✅ All six concepts retained.
+
+---
+
+# Next Practical Steps
+
+1. Refine the annotation guidelines with additional examples.
+2. Expand the concept-annotated dataset beyond the initial pilot.
+3. Include multiple annotators and measure inter-annotator agreement.
+4. Investigate automatic concept prediction using conventional computer vision and vision-language models.
+5. Evaluate concept robustness across multiple image generators.
+6. Control for confounding factors such as compression, resolution, and artistic style.
+7. Integrate validated concepts into the first interpretable synthetic image detection model.
