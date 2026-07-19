@@ -1,4 +1,4 @@
-# Phase 2 — Concept Learning Plan
+# Phase 2 - Concept Learning Plan
 
 ## Objective
 
@@ -18,7 +18,7 @@ The expected outputs are:
 - an analysis of concept relevance,
 - and recommendations for the first concept-based model.
 
-## Task 1 — Review the Concept Vocabulary
+## Task 1 - Review the Concept Vocabulary
 
 Review the candidate concepts and classify each one as:
 
@@ -38,7 +38,7 @@ Select approximately 5–10 concepts according to:
 - expected relevance,
 - and diversity across concept categories.
 
-## Task 3 — Define Each Concept
+## Task 3 - Define Each Concept
 
 For every selected concept, document:
 
@@ -74,7 +74,7 @@ Annotate each applicable concept using the scale:
 - 3: strong,
 - N/A: not applicable.
 
-## Task 6 — Validate the Annotations
+## Task 6 - Validate the Annotations
 
 Evaluate:
 
@@ -84,7 +84,7 @@ Evaluate:
 - concept co-occurrence,
 - and differences between real and synthetic images.
 
-## Task 7 — Test Automatic Concept Extraction
+## Task 7 - Test Automatic Concept Extraction
 
 Test at least two approaches:
 
@@ -100,14 +100,3 @@ Retain concepts that are:
 - sufficiently frequent,
 - discriminative,
 - and useful for explanations.
-
-## Completion Criteria
-
-Phase 2 will be considered complete when:
-
-- the initial vocabulary has been reviewed,
-- 5–10 concepts have been selected,
-- each selected concept has an operational definition,
-- a pilot dataset has been annotated,
-- initial concept statistics have been calculated,
-- and a final concept subset has been selected for the first prototype.
